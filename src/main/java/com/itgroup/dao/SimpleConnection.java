@@ -4,11 +4,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class SuperDao {
+public class SimpleConnection {
 
     String driver = "oracle.jdbc.driver.OracleDriver";
 
-    public SuperDao() {
+    public SimpleConnection() {
         try {
             Class.forName(driver);
         } catch (ClassNotFoundException e) {

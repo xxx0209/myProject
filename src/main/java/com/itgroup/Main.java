@@ -1,5 +1,9 @@
 package com.itgroup;
 
+import com.itgroup.api.SimpleConnection;
+import com.itgroup.dao.CoffeeOrderDao;
+import com.itgroup.dao.DConnection;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -12,6 +16,9 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+
+        SimpleConnection simpleConnection = new DConnection();
+        CoffeeOrderDao orderDao = new CoffeeOrderDao(simpleConnection);
 
         Scanner scan = new Scanner(System.in);
 

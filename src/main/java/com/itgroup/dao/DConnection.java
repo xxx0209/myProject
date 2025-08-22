@@ -1,14 +1,16 @@
 package com.itgroup.dao;
 
+import com.itgroup.api.SimpleConnection;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class SuperDao {
+public class DConnection implements SimpleConnection {
 
     String driver = "oracle.jdbc.driver.OracleDriver";
 
-    public SuperDao() {
+    public DConnection() {
         try {
             Class.forName(driver);
         } catch (ClassNotFoundException e) {
@@ -17,7 +19,8 @@ public class SuperDao {
         }
     }
 
-    public Connection getConnection() {
+    @Override
+    public Connection getConnection() throws ClassNotFoundException, SQLException {
         String url = "jdbc:oracle:thin:@localhost:1521:xe";
         String id = "ljy";
         String password = "ljy";
