@@ -1,45 +1,51 @@
 package com.itgroup;
 
-import com.itgroup.coffee.domain.Member;
-import com.itgroup.coffee.service.OrderService;
-import com.itgroup.coffee.service.StampService;
-import com.itgroup.coffee.ui.HomePrinter;
-import com.itgroup.coffee.ui.StampPrinter;
+import com.itgroup.composeCofee.controller.HomeController;
+import com.itgroup.composeCofee.controller.MoreController;
+import com.itgroup.composeCofee.controller.OrderController;
+import com.itgroup.composeCofee.domain.Member;
+import com.itgroup.composeCofee.view.HomeView;
+import com.itgroup.composeCofee.view.MoreView;
+import com.itgroup.composeCofee.view.OrderView;
 
 public class Main {
     public static void main(String[] args) {
 
-        //회원정보 가져오기
+        // 회원 정보
         Member member = new Member();
         member.setId("ljy");
         member.setName("이제용");
 
-        HomePrinter homePrinter = new HomePrinter();
-        StampPrinter stampPrinter = new StampPrinter();
-        OrderService orderService = new OrderService();
-        StampService stampService = new StampService();
+        HomeView homeView = new HomeView();
+        HomeController homeController = new HomeController(homeView);
 
-        //메인화면 상단 출력
-        homePrinter.printTop(member);
-        stampPrinter.printStamp();
+        OrderView orderView = new OrderView();
+        OrderController orderController = new OrderController(orderView);
 
-        while (true) {
-            //메인화면 바디 출력
-            int choice = homePrinter.printBody();
+        MoreView moreView = new MoreView();
+        MoreController moreController = new MoreController(moreView);
 
+        boolean running = true;
+        while (running) {
+            int choice = homeController.process(member);
             switch (choice) {
-                case 0:
-                    System.exit(0);
+                case 0 : {
+                    running = false;
                     break;
-                case 1:
+                }
+//                case 1 : {
+//                    break;
+//                }
+                case 1 : {
+                    orderController.process(member);
                     break;
-                case 2:
-                    orderService.orderTemplate(member);
-                case 3:
-                    stampService.stampTemplate(member);
+                }
+                case 2 : {
+                    moreController.process(member);
                     break;
+                }
             }
         }
-
+        System.out.println("프로그램을 종료합니다.");
     }
 }
