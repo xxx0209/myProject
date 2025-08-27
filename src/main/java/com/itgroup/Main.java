@@ -1,38 +1,45 @@
 package com.itgroup;
 
-import com.itgroup.api.SimpleConnection;
-import com.itgroup.dao.CoffeeOrderDao;
-import com.itgroup.dao.DConnection;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.Scanner;
-
-// CREATE USER oraman IDENTIFIED BY oracle DEFAULT TABLESPACE users TEMPORARY TABLESPACE temp;
-//GRANT connect, resource TO oraman;
-//ALTER USER oraman ACCOUNT UNLOCK;
+import com.itgroup.coffee.domain.Member;
+import com.itgroup.coffee.service.OrderService;
+import com.itgroup.coffee.service.StampService;
+import com.itgroup.coffee.ui.HomePrinter;
+import com.itgroup.coffee.ui.StampPrinter;
 
 public class Main {
     public static void main(String[] args) {
 
-        SimpleConnection simpleConnection = new DConnection();
-        CoffeeOrderDao orderDao = new CoffeeOrderDao(simpleConnection);
+        //회원정보 가져오기
+        Member member = new Member();
+        member.setId("ljy");
+        member.setName("이제용");
 
-        Scanner scan = new Scanner(System.in);
+        HomePrinter homePrinter = new HomePrinter();
+        StampPrinter stampPrinter = new StampPrinter();
+        OrderService orderService = new OrderService();
+        StampService stampService = new StampService();
 
-        while (true){
-            System.out.println("메뉴 선택");
-            System.out.println("0 : 닫기");
-            int menu = scan.nextInt();
+        //메인화면 상단 출력
+        homePrinter.printTop(member);
+        stampPrinter.printStamp();
 
-            switch (menu) {
+        while (true) {
+            //메인화면 바디 출력
+            int choice = homePrinter.printBody();
+
+            switch (choice) {
                 case 0:
-                    System.out.println("프로그램을 종료합니다.");
                     System.exit(0);
-                break;
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    orderService.orderTemplate(member);
+                case 3:
+                    stampService.stampTemplate(member);
+                    break;
             }
         }
+
     }
 }

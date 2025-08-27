@@ -1,8 +1,9 @@
-package com.itgroup.api;
+package com.itgroup.coffee.infrastructure;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public interface SimpleConnection {
+
+public interface ConnectionProvider {
     public Connection getConnection() throws ClassNotFoundException, SQLException;
 }
