@@ -35,18 +35,20 @@ public class OrderController {
 
                     if (choice == 0) {
                         step = OrderStep.HOME; //이전화면으로
+                        continue;
                     } else if (choice == 1) {
                         order.setCoffeeMenu(CoffeeMenu.AMERICANO);
-                        step = OrderStep.OPTION;
+//                        step = OrderStep.OPTION;
                     } else if (choice == 2) {
                         order.setCoffeeMenu(CoffeeMenu.CAFELATTE);
-                        step = OrderStep.OPTION;
+//                        step = OrderStep.OPTION;
                     } else if (choice == 3) {
                         order.setCoffeeMenu(CoffeeMenu.ESPRESSO);
-                        step = OrderStep.OPTION;
+//                        step = OrderStep.OPTION;
                     } else {
                         orderView.printWrongNumber();
                     }
+                    step = OrderStep.OPTION;
                     break;
 
                 }
@@ -55,18 +57,20 @@ public class OrderController {
 
                     if (choice == 0) {
                         step = OrderStep.MENU; //이전화면으로
+                        continue;
                     } else if (choice == 1) {
                         order.setCoffeeOption(CoffeeOption.HOT);
-                        step = OrderStep.QUANTITY;
+//                        step = OrderStep.QUANTITY;
                     } else if (choice == 2) {
                         order.setCoffeeOption(CoffeeOption.ICED);
-                        step = OrderStep.QUANTITY;
+//                        step = OrderStep.QUANTITY;
                     } else if (choice == 3) {
                         order.setCoffeeMenu(CoffeeMenu.ESPRESSO);
-                        step = OrderStep.QUANTITY;
+//                        step = OrderStep.QUANTITY;
                     } else {
                         orderView.printWrongNumber();
                     }
+                    step = OrderStep.QUANTITY;
                     break;
 
                 }
@@ -86,6 +90,7 @@ public class OrderController {
 
                     if (choice == 0) {
                         step = OrderStep.QUANTITY; // 이전화면으로
+                        continue;
                     } else if (choice == 1) {
                         wishList.add(order); //임시 주문내역 담기
                         order = new Order(); // 새로운 주문 객체
@@ -140,7 +145,6 @@ public class OrderController {
                         orderView.printOrderComplete();
                         step = OrderStep.HOME;
                     }
-
                     break;
                 }
             }
