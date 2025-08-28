@@ -106,8 +106,4 @@ public class MemberDao {
 
         return stamp;
     }
-
-    public int saveOrders(List<Order> orders) {
-        return 1;
-    }
 }
