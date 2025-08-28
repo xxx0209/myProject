@@ -3,8 +3,6 @@ package com.itgroup.cofee.service;
 import com.itgroup.cofee.dao.DaoFactory;
 import com.itgroup.cofee.dao.MemberDao;
 import com.itgroup.cofee.dao.OrderDao;
-import com.itgroup.cofee.dao.StampDao;
-import com.itgroup.cofee.domain.Order;
 import com.itgroup.cofee.domain.OrderGroup;
 import com.itgroup.cofee.domain.Stamp;
 

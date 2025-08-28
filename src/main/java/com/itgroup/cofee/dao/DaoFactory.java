@@ -9,10 +9,6 @@ public class DaoFactory {
         return new OrderDao(this.getConnection());
     }
 
-    public StampDao stampDao() {
-        return new StampDao(this.getConnection());
-    }
-
     public MemberDao memberDao() {
         return new MemberDao(this.getConnection());
     }

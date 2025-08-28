@@ -6,8 +6,8 @@ import com.itgroup.cofee.view.LoginView;
 
 public class LoginController {
 
-    private LoginView loginView;
-    private LoginService loginService;
+    private final LoginView loginView;
+    private final LoginService loginService;
 
     public LoginController(LoginView loginView) {
         this.loginView = loginView;

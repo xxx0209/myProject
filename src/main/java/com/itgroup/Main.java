@@ -12,7 +12,7 @@ import com.itgroup.cofee.view.OrderView;
 
 //프로그램의 전체적인 흐름 제어
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         // 회원 정보
         Member member = null;
@@ -20,51 +20,59 @@ public class Main {
         LoginView loginView = new LoginView();
         LoginController loginController = new LoginController(loginView);
 
-        //1. 로그인 화면 및 로그인 처리
+        // 01. 로그인 화면 및 로그인 처리
         boolean isLogin = false;
-        while (!isLogin) {
-            member = loginController.process(new Member());
-            if (member == null) {
-                System.out.println("로그인 실패 하였습니다.");
-
-            } else {
-                isLogin = true;
-            }
-        }
-
-        // 02. 홈 화면
-        HomeView homeView = new HomeView();
-        HomeController homeController = new HomeController(homeView);
-
-        // 03. 주문화면
-        OrderView orderView = new OrderView();
-        OrderController orderController = new OrderController(orderView);
-
-        // 04. 더보기 화면
-        MoreView moreView = new MoreView();
-        MoreController moreController = new MoreController(moreView);
-
         boolean running = true;
+
+        logout:
         while (running) {
-            int choice = homeController.process(member);
-            switch (choice) {
-                case 0 : {
-                    running = false;
-                    break;
-                }
-//                case 1 : {
-//                    break;
-//                }
-                case 1 : {
-                    orderController.process(member);
-                    break;
-                }
-                case 2 : {
-                    moreController.process(member);
-                    break;
+            while (!isLogin) {
+                member = loginController.process(new Member());
+                if (member == null) {
+                    System.out.println("로그인 실패 하였습니다.");
+
+                } else {
+                    isLogin = true;
                 }
             }
+
+            // 02. 홈 화면
+            HomeView homeView = new HomeView();
+            HomeController homeController = new HomeController(homeView);
+
+            // 03. 주문화면
+            OrderView orderView = new OrderView();
+            OrderController orderController = new OrderController(orderView);
+
+            // 04. 더보기 화면
+            MoreView moreView = new MoreView();
+            MoreController moreController = new MoreController(moreView);
+
+            while (running) {
+                int choice = homeController.process(member);
+                switch (choice) {
+                    case 0: {
+                        running = false;
+                        break ;
+                    }
+                    case 1: {
+                        orderController.process(member);
+                        break;
+                    }
+                    case 2: {
+                        moreController.process(member);
+                        break;
+                    }
+                    case 3: {
+                        member = null;
+                        isLogin = false;
+                        continue logout;
+                    }
+                }
+
+            }
         }
+        System.out.println();
         System.out.println("프로그램을 종료합니다.");
     }
 }

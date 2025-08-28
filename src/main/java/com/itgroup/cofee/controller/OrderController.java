@@ -11,12 +11,10 @@ import java.util.List;
 public class OrderController {
     
     private final OrderView orderView;
-    private final OrderCalculator calculator;
     private final OrderService orderService;
 
     public OrderController(OrderView orderView) {
         this.orderView = orderView;
-        this.calculator = new OrderCalculator();
         this.orderService = new OrderService();
     }
 
