@@ -12,67 +12,65 @@ import com.itgroup.cofee.view.OrderView;
 
 //프로그램의 전체적인 흐름 제어
 public class Main {
-    public static void main(String[] args) throws Exception {
 
-        // 회원 정보
-        Member member = null;
+    private boolean running = true;
+    private boolean isLogin = false;
+    private Member member;
 
-        LoginView loginView = new LoginView();
-        LoginController loginController = new LoginController(loginView);
+    private final LoginController loginController = new LoginController(new LoginView());
+    private final HomeController homeController = new HomeController(new HomeView());
+    private final OrderController orderController = new OrderController(new OrderView());
+    private final MoreController moreController = new MoreController(new MoreView());
 
-        // 01. 로그인 화면 및 로그인 처리
-        boolean isLogin = false;
-        boolean running = true;
-
-        logout:
+    private void run() throws Exception {
         while (running) {
-            while (!isLogin) {
-                member = loginController.process(new Member());
-                if (member == null) {
-                    System.out.println("로그인 실패 하였습니다.");
-
-                } else {
-                    isLogin = true;
-                }
+            // 로그인 처리
+            if (!isLogin) {
+                login();
+                continue;
             }
 
-            // 02. 홈 화면
-            HomeView homeView = new HomeView();
-            HomeController homeController = new HomeController(homeView);
-
-            // 03. 주문화면
-            OrderView orderView = new OrderView();
-            OrderController orderController = new OrderController(orderView);
-
-            // 04. 더보기 화면
-            MoreView moreView = new MoreView();
-            MoreController moreController = new MoreController(moreView);
-
-            while (running) {
-                int choice = homeController.process(member);
-                switch (choice) {
-                    case 0: {
-                        running = false;
-                        break ;
-                    }
-                    case 1: {
-                        orderController.process(member);
-                        break;
-                    }
-                    case 2: {
-                        moreController.process(member);
-                        break;
-                    }
-                    case 3: {
-                        member = null;
-                        isLogin = false;
-                        continue logout;
-                    }
-                }
-
-            }
+            // 홈 메뉴 처리
+            processHomeMenu();
         }
-        System.out.println();
-        System.out.println("프로그램을 종료합니다.");
+
+        System.out.println("\n프로그램을 종료합니다.");
     }
+
+    //로그인
+    private void login() throws Exception {
+
+        member = loginController.process(new Member());
+        if (member == null) {
+            System.out.println("로그인 실패 하였습니다.");
+        } else {
+            isLogin = true;
+        }
+    }
+
+    /** 홈 메뉴 선택 처리 */
+    private void processHomeMenu() throws Exception {
+        int choice = homeController.process(member);
+
+        switch (choice) {
+            case 0 : running = false; break;                 // 종료
+            case 1 : orderController.process(member); break; // 주문 화면
+            case 2 : moreController.process(member); break; // 더보기 화면
+            case 3 : logout(); break;                       // 로그아웃
+            default : System.out.println("잘못된 선택입니다.");
+        }
+    }
+
+    /** 로그아웃 처리 */
+    private void logout() {
+        member = null;
+        isLogin = false;
+        System.out.println("로그아웃 되었습니다.");
+    }
+
+    public static void main(String[] args) throws Exception {
+        Main app = new Main();
+        app.run();
+    }
+
 }

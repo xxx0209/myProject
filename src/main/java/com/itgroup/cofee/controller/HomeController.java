@@ -17,11 +17,11 @@ public class HomeController {
     }
 
     public int process(Member member) {
-        Stamp stamp = homeService.getStampInfo(member.getMemberId());
-        member.setCoupon(stamp.getCoupon());
-        member.setReward(stamp.getReward());
-
-        homeView.printTop(member);
+//        Stamp stamp = homeService.getStampInfo(member.getMemberId());
+//        member.setCoupon(stamp.getCoupon());
+//        member.setReward(stamp.getReward());
+//
+//        homeView.printTop(member);
 
         return homeView.printMenu();
     }
