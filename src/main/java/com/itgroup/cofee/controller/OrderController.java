@@ -43,8 +43,6 @@ public class OrderController {
                         order.setDrinkName(CoffeeMenu.CAFELATTE);
                     } else if (choice == 3) {
                         order.setDrinkName(CoffeeMenu.ESPRESSO);
-                    } else {
-                        orderView.printWrongNumber();
                     }
                     step = OrderStep.OPTION;
                     break;
@@ -60,8 +58,6 @@ public class OrderController {
                         order.setDrinkOption(CoffeeOption.HOT);
                     } else if (choice == 2) {
                         order.setDrinkOption(CoffeeOption.ICED);
-                    } else {
-                        orderView.printWrongNumber();
                     }
                     step = OrderStep.QUANTITY;
                     break;
@@ -91,8 +87,6 @@ public class OrderController {
                         step = OrderStep.WISHCART; //임시 장바구니 화면
                     } else if (choice == 2) {
                         step = OrderStep.LAST; //주문 바로하기
-                    } else {
-                        orderView.printWrongNumber();
                     }
                     break;
                 }

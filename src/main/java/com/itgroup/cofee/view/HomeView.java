@@ -4,9 +4,7 @@ import com.itgroup.cofee.domain.Member;
 
 import java.util.Scanner;
 
-public class HomeView {
-
-    private final Scanner scan = new Scanner(System.in);
+public class HomeView extends View{
 
     public void printTop(Member member) {
         System.out.println();
@@ -22,10 +20,7 @@ public class HomeView {
 
         System.out.println();
         System.out.println("메인 메뉴 --------------------------------------");
-        System.out.println("닫기(0번), 주문(1번), 더보기(2번)");
-//        System.out.println("닫기(0번), 홈(1번), 주문(2번), 더보기(3번)");
-        System.out.print("입력 ✎ : ");
-
-        return scan.nextInt();
+        System.out.println("종료(0번), 주문(1번), 더보기(2번)");
+        return this.printChoiceNumber(0, 2);
     }
 }

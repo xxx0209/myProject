@@ -5,16 +5,15 @@ import com.itgroup.cofee.domain.*;
 import java.util.List;
 import java.util.Scanner;
 
-public class MoreView {
+public class MoreView extends View{
 
-    private final Scanner scan = new Scanner(System.in);
+//    private final Scanner scan = new Scanner(System.in);
 
     public int printMenu() {
         System.out.println();
         System.out.println("더보기 메뉴 --------------------------------------");
         System.out.println("홈(0번), 스탬프&리워드(1번), 주문내역(2번), 회원정보(3번)");
-        System.out.print("입력 ✎ : ");
-        return scan.nextInt();
+        return this.printChoiceNumber(0, 3);
     }
 
     public void printStamp() {
@@ -49,8 +48,9 @@ public class MoreView {
         System.out.print(reward);
         System.out.print("(리워드 쿠폰은 주문당 1건만 사용 가능)");
         System.out.println();
-        System.out.print("닫기(0번) :");
-        return scan.nextInt();
+        System.out.println();
+        System.out.println("닫기(0번)");
+        return this.printChoiceNumber(0, 0);
     }
 
     public int printOderHistory(List<OrderGroup> orders) {
@@ -62,11 +62,12 @@ public class MoreView {
             String str = " ";
             if (order.getOrderCount() > 1) {
                 str = " 외 " + (order.getOrderCount() - 1) + "건 ";
-            } 
+            }
             System.out.println(order.getRecentDate() + " " + order.getLastDrink().getName() + str + order.getTotalPrice()+ "원 결제");
         }
-        System.out.print("닫기(0번) :");
-        return scan.nextInt();
+        System.out.println();
+        System.out.println("닫기(0번)");
+        return this.printChoiceNumber(0, 0);
     }
 
     public int printMemberInfo(Member member) {
@@ -77,8 +78,9 @@ public class MoreView {
         System.out.println("이름 : " + member.getName());
         System.out.println("전화번호 : " + member.getName());
         System.out.println("가입일 : " + member.getJoinDate());
-        System.out.print("닫기(0번) :");
-        return scan.nextInt();
+        System.out.println();
+        System.out.println("닫기(0번)");
+        return this.printChoiceNumber(0, 0);
     }
 
 

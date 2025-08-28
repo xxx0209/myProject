@@ -4,9 +4,7 @@ import com.itgroup.cofee.domain.Member;
 
 import java.util.Scanner;
 
-public class LoginView {
-
-    private final Scanner scan = new Scanner(System.in);
+public class LoginView extends View {
 
     public Member printLogin(Member member) {
         System.out.println();
@@ -23,7 +21,6 @@ public class LoginView {
     }
 
     public void printLogOut() {
-
         System.out.println();
         System.out.println("로그 아웃 되었습니다.");
     }
