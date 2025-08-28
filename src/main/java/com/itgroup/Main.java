@@ -1,27 +1,46 @@
 package com.itgroup;
 
-import com.itgroup.composeCofee.controller.HomeController;
-import com.itgroup.composeCofee.controller.MoreController;
-import com.itgroup.composeCofee.controller.OrderController;
-import com.itgroup.composeCofee.domain.Member;
-import com.itgroup.composeCofee.view.HomeView;
-import com.itgroup.composeCofee.view.MoreView;
-import com.itgroup.composeCofee.view.OrderView;
+import com.itgroup.cofee.controller.HomeController;
+import com.itgroup.cofee.controller.LoginController;
+import com.itgroup.cofee.controller.MoreController;
+import com.itgroup.cofee.controller.OrderController;
+import com.itgroup.cofee.domain.Member;
+import com.itgroup.cofee.view.HomeView;
+import com.itgroup.cofee.view.LoginView;
+import com.itgroup.cofee.view.MoreView;
+import com.itgroup.cofee.view.OrderView;
 
+//프로그램의 전체적인 흐름 제어
 public class Main {
     public static void main(String[] args) {
 
         // 회원 정보
-        Member member = new Member();
-        member.setId("ljy");
-        member.setName("이제용");
+        Member member = null;
 
+        LoginView loginView = new LoginView();
+        LoginController loginController = new LoginController(loginView);
+
+        //1. 로그인 화면 및 로그인 처리
+        boolean isLogin = false;
+        while (!isLogin) {
+            member = loginController.process(new Member());
+            if (member == null) {
+                System.out.println("로그인 실패 하였습니다.");
+
+            } else {
+                isLogin = true;
+            }
+        }
+
+        // 02. 홈 화면
         HomeView homeView = new HomeView();
         HomeController homeController = new HomeController(homeView);
 
+        // 03. 주문화면
         OrderView orderView = new OrderView();
         OrderController orderController = new OrderController(orderView);
 
+        // 04. 더보기 화면
         MoreView moreView = new MoreView();
         MoreController moreController = new MoreController(moreView);
 
