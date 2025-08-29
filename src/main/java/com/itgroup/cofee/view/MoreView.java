@@ -7,19 +7,11 @@ import java.util.Scanner;
 
 public class MoreView extends View{
 
-//    private final Scanner scan = new Scanner(System.in);
-
     public int printMenu() {
         System.out.println();
         System.out.println("더보기 메뉴 --------------------------------------");
         System.out.println("홈(0번), 스탬프&리워드(1번), 주문내역(2번), 회원정보(3번)");
         return this.printChoiceNumber(0, 3);
-    }
-
-    public void printStamp() {
-
-        System.out.print("스탬프 도장(리워드 : 1) ");
-        System.out.println("☕\s☕\s☕\s〇\s〇\s〇\s〇\s〇\s〇\s〇");
     }
 
     public int printStamp(Stamp stamp) {
@@ -30,9 +22,9 @@ public class MoreView extends View{
         String coupon = "";
         for (int i = 0; i < 10; i++) {
             if(i < stamp.getCoupon()) {
-                coupon = coupon + "☕ ";
+                coupon = coupon + "● ";
             } else {
-                coupon = coupon + "〇 ";
+                coupon = coupon + "○ ";
             }
         }
         System.out.print(coupon);
@@ -42,7 +34,7 @@ public class MoreView extends View{
         String reward = "";
         for (int i = 0; i < stamp.getReward(); i++) {
             if(i < stamp.getCoupon()) {
-                reward = reward + "🎁 ";
+                reward = reward + "♣ ";
             }
         }
         System.out.print(reward);
@@ -63,7 +55,7 @@ public class MoreView extends View{
             if (order.getOrderCount() > 1) {
                 str = " 외 " + (order.getOrderCount() - 1) + "건 ";
             }
-            System.out.println(order.getRecentDate() + " " + order.getLastDrink().getName() + str + order.getTotalPrice()+ "원 결제");
+            System.out.println("주문번호 " + order.getOrderId() + " : " + order.getRecentDate() + " " + order.getLastDrink().getName() + str + df.format(order.getTotalPrice())+ "원 결제");
         }
         System.out.println();
         System.out.println("닫기(0번)");
@@ -76,7 +68,7 @@ public class MoreView extends View{
         System.out.println("회원 정보 --------------------------------------");
         System.out.println("ID : " + member.getMemberId());
         System.out.println("이름 : " + member.getName());
-        System.out.println("전화번호 : " + member.getName());
+        System.out.println("전화번호 : " + member.getPhone());
         System.out.println("가입일 : " + member.getJoinDate());
         System.out.println();
         System.out.println("닫기(0번)");

@@ -59,10 +59,10 @@ public class OrderDao {
 
     //주문내역 조회하기
     public List<OrderGroup> getOrders(String memberId) {
-        String sql = "select order_id, to_char(max(order_date), 'yyyy-mm-dd') as recent_date, sum(price) as total_price, " +
-                     " count(*) as order_count, max(drink_name) keep (dense_rank last order by order_date) as last_drink," +
-                     " max(drink_option) keep (dense_rank last order by order_date) as last_option" +
-                     " from orders where member_id = ? group by order_id order by recent_date desc";
+        String sql = "select order_id, to_char(max(order_date), 'yyyy-mm-dd hh24:mi') as recent_date, sum(price) as total_price, " +
+                     " count(*) as order_count, max(drink_name) keep (dense_rank last order by seq) as last_drink," +
+                     " max(drink_option) keep (dense_rank last order by seq) as last_option" +
+                     " from orders where member_id = ? group by order_id order by order_id desc";
 
 
 
@@ -135,7 +135,7 @@ public class OrderDao {
             ps.setString(4, order.getDrinkName().getName());
             ps.setString(5, order.getDrinkOption().getName());
             ps.setInt(6, order.getQuantity());
-            ps.setInt(7, order.getDrinkName().getPrice());
+            ps.setInt(7, (order.getDrinkName().getPrice() * order.getQuantity()));
 
             saveCnt = ps.executeUpdate();
 
@@ -198,7 +198,7 @@ public class OrderDao {
                 ps.setString(4, order.getDrinkName().getName());
                 ps.setString(5, order.getDrinkOption().getName());
                 ps.setInt(6, order.getQuantity());
-                ps.setInt(7, order.getDrinkName().getPrice());
+                ps.setInt(7, (order.getDrinkName().getPrice() * order.getQuantity()));
 
                 ps.addBatch(); // 배치에 추가
                 totalQuantity += order.getQuantity(); //총 주문수

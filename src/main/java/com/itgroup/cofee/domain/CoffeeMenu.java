@@ -1,10 +1,13 @@
 package com.itgroup.cofee.domain;
 
+import java.text.DecimalFormat;
+
 public enum CoffeeMenu {
     ESPRESSO("에스프레소", 1500),
     AMERICANO("아메리카노", 1800),
     CAFELATTE("카페라떼", 2900);
 
+    DecimalFormat df = new DecimalFormat("#,###");
     private final String name;
     private final int price;
     private final String label;
@@ -26,7 +29,8 @@ public enum CoffeeMenu {
 
     @Override
     public String toString() {
-        return name + "[" + price + "원]";
+
+        return name + "[" + df.format(price) + "원]";
     }
 
     public static CoffeeMenu fromDbValue(String dbValue) {

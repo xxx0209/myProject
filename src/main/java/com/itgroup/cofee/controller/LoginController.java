@@ -23,4 +23,12 @@ public class LoginController {
 
         return member;
     }
+
+    public void logout() {
+        loginView.printLogOut();
+    }
+
+    public int retry() {
+        return loginView.printRetry();
+    }
 }

@@ -42,7 +42,11 @@ public class Main {
 
         member = loginController.process(new Member());
         if (member == null) {
-            System.out.println("로그인 실패 하였습니다.");
+            int choice = loginController.retry();
+            switch (choice) {
+                case 0 : running = false; break;
+                case 1 : break;
+            }
         } else {
             isLogin = true;
         }
@@ -65,7 +69,7 @@ public class Main {
     private void logout() {
         member = null;
         isLogin = false;
-        System.out.println("로그아웃 되었습니다.");
+        loginController.logout();
     }
 
     public static void main(String[] args) throws Exception {

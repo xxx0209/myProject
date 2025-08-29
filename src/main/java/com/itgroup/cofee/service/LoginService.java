@@ -17,8 +17,6 @@ public class LoginService {
     public Member login(String id, String password) {
         return memberDao.login(id, password);
     }
-//    public Member loginOut(Member member) {
-//        return memberDao.login(id, password);
-//    }
+
 
 }
